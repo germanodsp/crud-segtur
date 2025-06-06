@@ -6,7 +6,7 @@ package segtur;
 
 /**
  *
- * @author aa
+ * @author aaaaa
  */
 public class Segtur {
 
