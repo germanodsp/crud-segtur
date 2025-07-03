@@ -10,4 +10,6 @@ public interface OperacoesDAO<T> {
     void editar(T obj);
 
     List<T> pesquisar(String key);
+
+    List<T> listarTodos();
 }
