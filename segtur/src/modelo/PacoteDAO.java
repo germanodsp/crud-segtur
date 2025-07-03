@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * Responsável por simular a persistência de dados em memória, utilizando
  * uma lista estática (ArrayList), conforme os requisitos do projeto.
  */
-public class PacoteDAO implements OperacoesDAO<Pacote> {
+public abstract class PacoteDAO implements OperacoesDAO<Pacote> {
 
     // Lista estática que funcionará como nosso "banco de dados" em memória.
     // Sendo estática, ela é única para toda a aplicação.
@@ -40,3 +40,7 @@ public class PacoteDAO implements OperacoesDAO<Pacote> {
             // Encontra o pacote na lista pelo ID
             if (pacoteNaLista.getId() == pacoteAtualizado.getId()) {
                 // Substitui o
+            }
+        }
+    }
+}

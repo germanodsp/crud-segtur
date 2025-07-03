@@ -43,4 +43,16 @@ public class UsuarioDAO implements OperacoesDAO<Usuario> {
     public List<Usuario> buscarTodos() {
         return new ArrayList<>(listaDeUsuarios); // Retorna uma cópia da lista
     }
+
+    public static void main(String[] args) {
+        UsuarioDAO dao = new UsuarioDAO();
+        Usuario usuario = new Usuario("12312332152", "Germano", "Senha", "email@gmail.com", "519999999");
+        dao.inserir(usuario);
+
+        dao.excluir(usuario);
+        dao.editar(usuario);
+        dao.pesquisar("João");
+        dao.buscarTodos();
+    }
 }
+

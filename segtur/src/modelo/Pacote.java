@@ -66,21 +66,21 @@ public class Pacote {
                ", preco=" + preco + ", dataInicio=" + dataInicio +
                ", dataFim=" + dataFim + '}';
     }
-    import java.util.Date;
 
-public static void main(String[] args) {
-    // Substitua os valores pelos valores corretos para o pacote
-    int id = 1;
-    String destino = "Brasil";
-    double preco = 1500.0;
-    Date dataInicio = new Date(); // Data de início, pode ser ajustada
-    Date dataFim = new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000); // Exemplo: fim daqui 7 dias
 
-    // Criação do objeto Pacote com os valores
-    Pacote p = new Pacote(id, destino, preco, dataInicio, dataFim);
-
-    // Exibe os dados do objeto para verificar resultado
-    System.out.println(p);
-}
+//public static void main(String[] args) {
+//    // Substitua os valores pelos valores corretos para o pacote
+//    int id = 1;
+//    String destino = "Brasil";
+//    double preco = 1500.0;
+//    Date dataInicio = new Date(); // Data de início, pode ser ajustada
+//    Date dataFim = new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000); // Exemplo: fim daqui 7 dias
+//
+//    // Criação do objeto Pacote com os valores
+//    Pacote p = new Pacote(id, destino, preco, dataInicio, dataFim);
+//
+//    // Exibe os dados do objeto para verificar resultado
+//    System.out.println(p);
+//}
 
 }

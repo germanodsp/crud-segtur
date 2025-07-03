@@ -5,6 +5,7 @@ import modelo.Usuario;
 import modelo.PacoteDAO; // Supondo que você criou PacoteDAO como sugeri
 import modelo.UsuarioDAO; // Supondo que você criou UsuarioDAO como sugeri
 
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -172,7 +173,8 @@ public class Segtur {
 
     private static void carregarDadosIniciais() {
         // Carga de Pacotes
-        Pacote p1 = new Pacote(1, "Serras Gaúchas", "Gramado/Canela", 1800.0, null, null, "Visita a vinícolas e parques.", 15);
+        Pacote p1 = new Pacote(1, "Serras Gaúchas", 1800.0, new Date(), new Date());
+        //Pacote p1 = new Pacote(1, "Serras Gaúchas", "Gramado/Canela", 1800.0, null, null, "Visita a vinícolas e parques.", 15);
         Pacote p2 = new Pacote(2, "Praias do Nordeste", "Porto de Galinhas", 3200.0, null, null, "Passeio de jangada e mergulho.", 10);
         pacoteDAO.inserir(p1);
         pacoteDAO.inserir(p2);
