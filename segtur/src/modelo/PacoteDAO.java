@@ -1,44 +1,42 @@
 package modelo;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class PacoteDAO {
+/**
+ * Classe de Objeto de Acesso a Dados (DAO) para a entidade Pacote.
+ * Responsável por simular a persistência de dados em memória, utilizando
+ * uma lista estática (ArrayList), conforme os requisitos do projeto.
+ */
+public class PacoteDAO implements OperacoesDAO<Pacote> {
 
-    private Connection connection;
+    // Lista estática que funcionará como nosso "banco de dados" em memória.
+    // Sendo estática, ela é única para toda a aplicação.
+    private static List<Pacote> listaDePacotes = new ArrayList<>();
 
-    public PacoteDAO(Connection connection) {
-        this.connection = connection;
+    // Variável para gerar IDs únicos para cada novo pacote.
+    private static int proximoId = 1;
+
+    @Override
+    public void inserir(Pacote pacote) {
+        // Define um ID único para o novo pacote antes de salvá-lo
+        pacote.setId(proximoId++);
+        listaDePacotes.add(pacote);
     }
 
-    public void insert(Pacote pacote) throws SQLException {
-        String sql = "INSERT INTO pacotes (destino, preco, data_inicio, data_fim) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, pacote.getDestino());
-            stmt.setDouble(2, pacote.getPreco());
-            stmt.setDate(3, new java.sql.Date(pacote.getDataInicio().getTime()));
-            stmt.setDate(4, new java.sql.Date(pacote.getDataFim().getTime()));
-            stmt.executeUpdate();
-        }
+    @Override
+    public void excluir(Pacote pacote) {
+        // O método remove() usa o método equals() da classe Pacote para encontrar o objeto.
+        // É fundamental que a classe Pacote tenha um equals() e hashCode() implementado corretamente (baseado no ID).
+        listaDePacotes.remove(pacote);
     }
 
-    public List<Pacote> findAll() throws SQLException {
-        List<Pacote> pacotes = new ArrayList<>();
-        String sql = "SELECT * FROM pacotes";
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                Pacote pacote = new Pacote(
-                    rs.getInt("id"),
-                    rs.getString("destino"),
-                    rs.getDouble("preco"),
-                    rs.getDate("data_inicio"),
-                    rs.getDate("data_fim")
-                );
-                pacotes.add(pacote);
-            }
-        }
-        return pacotes;
-    }
-}
+    @Override
+    public void editar(Pacote pacoteAtualizado) {
+        for (int i = 0; i < listaDePacotes.size(); i++) {
+            Pacote pacoteNaLista = listaDePacotes.get(i);
+
+            // Encontra o pacote na lista pelo ID
+            if (pacoteNaLista.getId() == pacoteAtualizado.getId()) {
+                // Substitui o
