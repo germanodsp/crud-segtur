@@ -24,8 +24,8 @@ public record Destino(int idDestino, String nome, String descricao) {
 
     @Override
     public String toString() {
-        return "nome=" + nome + '\'' +
-                "descricao=" + descricao + '\'' +
-                "idDestino=" + idDestino;
+        return "idDestino=" + idDestino + '\n' +
+                "nome=" + nome + '\n' +
+                "descricao=" + descricao;
     }
 }
