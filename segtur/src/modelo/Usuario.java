@@ -36,6 +36,7 @@ public boolean equals(Object o) {
     @Override
     public String toString() {
         return "Nome=" + nome() + '\n' +
+                "CPF=" + cpf() + '\n' +
                 "Senha=" + senha() + '\n' +
                 "Email="+ email() + '\n'+
                 "Telefone="+ telefone();
