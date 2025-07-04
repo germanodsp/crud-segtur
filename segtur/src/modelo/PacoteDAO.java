@@ -9,13 +9,10 @@ import java.util.stream.Collectors;
  * Responsável por simular a persistência de dados em memória, utilizando
  * uma lista estática (ArrayList), conforme os requisitos do projeto.
  */
-public abstract class PacoteDAO implements OperacoesDAO<Pacote> {
+public class PacoteDAO implements OperacoesDAO<Pacote> {
 
-    // Lista estática que funcionará como nosso "banco de dados" em memória.
-    // Sendo estática, ela é única para toda a aplicação.
     private static List<Pacote> listaDePacotes = new ArrayList<>();
 
-    // Variável para gerar IDs únicos para cada novo pacote.
     private static int proximoId = 1;
 
     @Override
@@ -35,12 +32,22 @@ public abstract class PacoteDAO implements OperacoesDAO<Pacote> {
     @Override
     public void editar(Pacote pacoteAtualizado) {
         for (int i = 0; i < listaDePacotes.size(); i++) {
-            Pacote pacoteNaLista = listaDePacotes.get(i);
-
-            // Encontra o pacote na lista pelo ID
-            if (pacoteNaLista.getId() == pacoteAtualizado.getId()) {
-                // Substitui o
+            if (listaDePacotes.get(i).getId() == pacoteAtualizado.getId()) {
+                listaDePacotes.set(i, pacoteAtualizado);
+                return;
             }
         }
+    }
+
+    @Override
+    public List<Pacote> pesquisar(String nomeDestino) {
+        return listaDePacotes.stream()
+                .filter(p -> p.getDestino().nome().toLowerCase().contains(nomeDestino.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Pacote> listarTodos() {
+        return new ArrayList<>(listaDePacotes);
     }
 }
