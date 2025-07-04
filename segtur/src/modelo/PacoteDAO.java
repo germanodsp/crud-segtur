@@ -87,11 +87,8 @@ public class PacoteDAO implements OperacoesDAO<Pacote> {
     }
 
     public Pacote pesquisarPorId(int id) {
-        for (Pacote p : listaDePacotes) {
-            if (p.getId() == id) {
-                return p;
-            }
-        }
-        return null; // Retorna null se não encontrar
+        // O método get() do HashMap é a forma mais eficiente de buscar por chave.
+        return repositorioDePacotes.get(id);
     }
+
 }
