@@ -14,6 +14,22 @@ public class Pacote {
     private int vagasDisponiveis; //
 
     public Pacote(int id, String nome, Destino destino, double preco, Date dataInicio, Date dataFim, String itinerario, int vagasDisponiveis) {
+        // Validação dos dados para garantir a integridade do objeto
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("Nome do pacote não pode ser vazio.");
+        }
+        if (destino == null) {
+            throw new IllegalArgumentException("Destino não pode ser nulo.");
+        }
+        if (preco <= 0) {
+            throw new IllegalArgumentException("Preço deve ser um valor positivo.");
+        }
+        if (dataFim.before(dataInicio)) {
+            throw new IllegalArgumentException("Data final não pode ser anterior à data inicial.");
+        }
+        if (vagasDisponiveis < 0) {
+            throw new IllegalArgumentException("Número de vagas não pode ser negativo.");
+        }
         this.id = id;
         this.nome = nome;
         this.destino = destino;
@@ -22,6 +38,11 @@ public class Pacote {
         this.dataFim = dataFim;
         this.itinerario = itinerario;
         this.vagasDisponiveis = vagasDisponiveis;
+    }
+
+    public Pacote(int id, String nome, Destino destino, double preco, Date dataInicio, Date dataFim, int vagasDisponiveis) {
+        // "this(...)" chama o outro construtor desta mesma classe
+        this(id, nome, destino, preco, dataInicio, dataFim, "Itinerário a ser definido.", vagasDisponiveis);
     }
 
     public int getId() {
@@ -37,6 +58,9 @@ public class Pacote {
     }
 
     public void setNome(String nome) {
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("Nome do pacote não pode ser vazio.");
+        }
         this.nome = nome;
     }
 
@@ -45,6 +69,9 @@ public class Pacote {
     }
 
     public void setDestino(Destino destino) {
+        if (destino == null) {
+            throw new IllegalArgumentException("Destino não pode ser nulo.");
+        }
         this.destino = destino;
     }
 
@@ -53,6 +80,9 @@ public class Pacote {
     }
 
     public void setPreco(double preco) {
+        if (preco <= 0) {
+            throw new IllegalArgumentException("Preço deve ser um valor positivo.");
+        }
         this.preco = preco;
     }
 
@@ -85,6 +115,9 @@ public class Pacote {
     }
 
     public void setVagasDisponiveis(int vagasDisponiveis) {
+        if (vagasDisponiveis < 0) {
+            throw new IllegalArgumentException("Número de vagas não pode ser negativo.");
+        }
         this.vagasDisponiveis = vagasDisponiveis;
     }
 
@@ -92,12 +125,15 @@ public class Pacote {
      * Método para decrementar o número de vagas ao fazer uma reserva.
      * Retorna true se a operação foi bem-sucedida, false se não havia vagas.
      */
-    public boolean reservarVaga() {
+    public void reservarVaga() {
         if (this.vagasDisponiveis > 0) {
             this.vagasDisponiveis--;
-            return true;
+        } else {
+            // Lançar uma exceção é melhor do que retornar um boolean,
+            // pois torna o erro mais explícito e difícil de ser ignorado.
+            //
+            throw new IllegalStateException("Não há vagas disponíveis para este pacote.");
         }
-        return false;
     }
 
     @Override

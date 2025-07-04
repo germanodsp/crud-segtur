@@ -16,6 +16,17 @@ public class Reserva {
      * O ID da reserva é gerado e atribuído pelo DAO.
      */
     public Reserva(Usuario usuario, Pacote pacote, Date dataReserva, Date dataLimiteCancelamento, StatusReserva status) {
+        // Validação de dados para garantir que a reserva seja válida
+        if (usuario == null) {
+            throw new IllegalArgumentException("O usuário não pode ser nulo.");
+        }
+        if (pacote == null) {
+            throw new IllegalArgumentException("O pacote não pode ser nulo.");
+        }
+        if (dataLimiteCancelamento.before(dataReserva)) {
+            throw new IllegalArgumentException("A data limite de cancelamento não pode ser anterior à data da reserva.");
+        }
+
         this.usuario = usuario;
         this.pacote = pacote;
         this.dataReserva = dataReserva;
@@ -37,6 +48,9 @@ public class Reserva {
     }
 
     public void setUsuario(Usuario usuario) {
+        if (usuario == null) {
+            throw new IllegalArgumentException("O usuário não pode ser nulo.");
+        }
         this.usuario = usuario;
     }
 
@@ -45,6 +59,9 @@ public class Reserva {
     }
 
     public void setPacote(Pacote pacote) {
+        if (pacote == null) {
+            throw new IllegalArgumentException("O pacote não pode ser nulo.");
+        }
         this.pacote = pacote;
     }
 
@@ -68,8 +85,28 @@ public class Reserva {
         return status;
     }
 
-    public void setStatus(StatusReserva status) {
+    private void setStatus(StatusReserva status) {
         this.status = status;
+    }
+
+    public void confirmar() {
+        if (this.status == StatusReserva.PENDENTE) {
+            this.setStatus(StatusReserva.CONFIRMADA);
+            System.out.println("Reserva " + idReserva + " confirmada com sucesso.");
+        } else {
+            System.out.println("Ação não permitida: a reserva não está com o status PENDENTE.");
+        }
+    }
+
+    public void cancelar() {
+        if (this.status == StatusReserva.PENDENTE || this.status == StatusReserva.CONFIRMADA) {
+            this.setStatus(StatusReserva.CANCELADA);
+            System.out.println("Reserva " + idReserva + " cancelada.");
+            // Aqui poderia entrar a lógica para devolver a vaga ao pacote.
+            // pacote.devolverVaga();
+        } else {
+            System.out.println("Ação não permitida: a reserva já está cancelada.");
+        }
     }
 
     @Override
