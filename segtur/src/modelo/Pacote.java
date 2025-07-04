@@ -41,7 +41,6 @@ public class Pacote {
     }
 
     public Pacote(int id, String nome, Destino destino, double preco, Date dataInicio, Date dataFim, int vagasDisponiveis) {
-        // "this(...)" chama o outro construtor desta mesma classe
         this(id, nome, destino, preco, dataInicio, dataFim, "Itinerário a ser definido.", vagasDisponiveis);
     }
 
@@ -121,17 +120,10 @@ public class Pacote {
         this.vagasDisponiveis = vagasDisponiveis;
     }
 
-    /**
-     * Método para decrementar o número de vagas ao fazer uma reserva.
-     * Retorna true se a operação foi bem-sucedida, false se não havia vagas.
-     */
     public void reservarVaga() {
         if (this.vagasDisponiveis > 0) {
             this.vagasDisponiveis--;
         } else {
-            // Lançar uma exceção é melhor do que retornar um boolean,
-            // pois torna o erro mais explícito e difícil de ser ignorado.
-            //
             throw new IllegalStateException("Não há vagas disponíveis para este pacote.");
         }
     }

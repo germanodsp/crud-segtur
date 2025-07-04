@@ -1,4 +1,4 @@
-package view;
+package control;
 
 import modelo.Destino;
 import modelo.DestinoDAO;

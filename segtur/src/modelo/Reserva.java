@@ -11,12 +11,7 @@ public class Reserva {
     private Date dataLimiteCancelamento;
     private StatusReserva status; // Usa o Enum StatusReserva
 
-    /**
-     * Construtor para criar uma nova reserva.
-     * O ID da reserva é gerado e atribuído pelo DAO.
-     */
     public Reserva(Usuario usuario, Pacote pacote, Date dataReserva, Date dataLimiteCancelamento, StatusReserva status) {
-        // Validação de dados para garantir que a reserva seja válida
         if (usuario == null) {
             throw new IllegalArgumentException("O usuário não pode ser nulo.");
         }
@@ -102,8 +97,6 @@ public class Reserva {
         if (this.status == StatusReserva.PENDENTE || this.status == StatusReserva.CONFIRMADA) {
             this.setStatus(StatusReserva.CANCELADA);
             System.out.println("Reserva " + idReserva + " cancelada.");
-            // Aqui poderia entrar a lógica para devolver a vaga ao pacote.
-            // pacote.devolverVaga();
         } else {
             System.out.println("Ação não permitida: a reserva já está cancelada.");
         }

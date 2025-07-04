@@ -1,15 +1,15 @@
 package view;
 
+import control.GerenciadorDestino;
+import control.GerenciadorPacote;
+import control.GerenciadorReserva;
+import control.GerenciadorUsuario;
 import modelo.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Scanner;
 
 public class SegturApp {
-
-    // ... (DAOs e Scanner permanecem os mesmos) ...
-
     public static void main(String[] args) {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         DestinoDAO destinoDAO = new DestinoDAO();
@@ -20,34 +20,27 @@ public class SegturApp {
         preCarregarDados(usuarioDAO, destinoDAO, pacoteDAO);
 
         System.out.println("===== BEM-VINDO AO SISTEMA SEGTUR =====");
-
-        Usuario usuarioLogado = realizarLogin(usuarioDAO, scanner); // Passando dependências
-
+        Usuario usuarioLogado = realizarLogin(usuarioDAO, scanner);
         if (usuarioLogado != null) {
             System.out.println("\nLogin realizado com sucesso! Bem-vindo(a), " + usuarioLogado.nome() + ".");
-            exibirMenuPrincipalLoop(usuarioLogado, usuarioDAO, destinoDAO, pacoteDAO, reservaDAO, scanner); // Passando dependências
+            exibirMenuPrincipalLoop(usuarioLogado, usuarioDAO, destinoDAO, pacoteDAO, reservaDAO, scanner);
         } else {
             System.out.println("Não foi possível realizar o login. A aplicação será encerrada.");
         }
-
         scanner.close();
     }
 
     private static Usuario realizarLogin(UsuarioDAO usuarioDAO, Scanner scanner) {
         int tentativas = 0;
         final int MAX_TENTATIVAS = 3;
-
         while (tentativas < MAX_TENTATIVAS) {
             System.out.print("Digite seu CPF: ");
             String cpf = scanner.nextLine();
             System.out.print("Digite sua senha: ");
             String senha = scanner.nextLine();
 
-            // Utiliza o método eficiente de busca por CPF que implementamos no DAO
             Usuario usuario = usuarioDAO.pesquisarPorCpf(cpf);
 
-            // 1. Verifica se o usuário foi encontrado (usuario != null)
-            // 2. Se sim, verifica se a senha digitada é igual à senha armazenada
             if (usuario != null && usuario.senha().equals(senha)) {
                 return usuario; // Sucesso! Retorna o objeto do usuário que fez o login.
             } else {
@@ -56,7 +49,6 @@ public class SegturApp {
             }
         }
 
-        // Se o loop terminar sem um login bem-sucedido, retorna null.
         return null;
     }
 
@@ -69,7 +61,6 @@ public class SegturApp {
         int opcao;
         do {
             exibirMenuPrincipal();
-            // << CORREÇÃO: Passando o 'scanner' para o método >>
             opcao = lerOpcao(scanner);
 
             switch (opcao) {

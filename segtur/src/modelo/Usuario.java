@@ -5,7 +5,6 @@ import java.util.Objects;
 public record Usuario(String cpf, String nome, String senha, String email, String telefone) {
 
     public Usuario {
-        // Validação basica dos dados do usuário.
         if (cpf == null || cpf.isBlank()) {
             throw new IllegalArgumentException("CPF é obrigatório e não pode estar vazio.");
         }
@@ -20,11 +19,11 @@ public record Usuario(String cpf, String nome, String senha, String email, Strin
         }
     }
 
-    //construtor adicional para sobrecarga do construtor compacto
+
     public Usuario(String cpf, String nome, String senha, String email) {
         this(cpf, nome, senha, email, ""); // Chama o construtor canônico
     }
-//Sobrescrita do equals
+
 @Override
 public boolean equals(Object o) {
     if (this == o) return true;
