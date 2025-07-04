@@ -50,4 +50,13 @@ public class PacoteDAO implements OperacoesDAO<Pacote> {
     public List<Pacote> listarTodos() {
         return new ArrayList<>(listaDePacotes);
     }
+
+    public Pacote pesquisarPorId(int id) {
+        for (Pacote p : listaDePacotes) {
+            if (p.getId() == id) {
+                return p;
+            }
+        }
+        return null; // Retorna null se não encontrar
+    }
 }
