@@ -38,5 +38,11 @@ public class MainDestino {
             System.out.println(u);
             System.out.println();
         }
+        System.out.println("\n--- PRINTANDO ARRAY TODO ---");
+        listaDeDestino = dao.listarTodos();
+        for (Destino u : listaDeDestino) {
+            System.out.println(u);
+            System.out.println();
+        }
     }
 }
